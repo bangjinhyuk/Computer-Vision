@@ -1,7 +1,7 @@
 # Computer-Vision
 아주대학교 컴퓨터 비전 수업
 
-## Mutiband blending 과제 (09/20)
+## Multiband blending 과제 (09/20)
  - 사과와 오렌지 이미지를 mask 이미지에 맞게 구분선 없이 절반 절반(흰/검)으로 자연스럽게 blending 하기
 
    + 시나리오
