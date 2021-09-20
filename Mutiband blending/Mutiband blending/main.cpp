@@ -121,9 +121,9 @@ Mat reconstructImages(std::vector<Mat>& src){
 int main()
 {
     // Scenario 1
-    Mat apple = imread("/Users/bangjinhyuk/Documents/Ajou/Mutiband blending/Mutiband blending/burt_apple.png",1);
-    Mat orange = imread("/Users/bangjinhyuk/Documents/Ajou/Mutiband blending/Mutiband blending/burt_orange.png",1);
-    Mat mask = imread("/Users/bangjinhyuk/Documents/Ajou/Mutiband blending/Mutiband blending/burt_mask.png",1);
+    Mat apple = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Mutiband blending/Mutiband blending/burt_apple.png",1);
+    Mat orange = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Mutiband blending/Mutiband blending/burt_orange.png",1);
+    Mat mask = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Mutiband blending/Mutiband blending/burt_mask.png",1);
 
     apple.convertTo(apple, CV_32F, 1/255.f);
     orange.convertTo(orange, CV_32F, 1/255.f);
