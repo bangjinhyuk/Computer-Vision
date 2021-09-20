@@ -11,16 +11,13 @@
      4. 오렌지와 사과 라플라시안을 주어진 mask에 맞추어 합성
      5. 라플라시안 합성본들을 다시 합성시킨다.
    + 주어진 이미지 
-     * mask image     
-   
-       ![mask](./Mutiband blending/Mutiband blending/burt_mask.png)
+     * mask image   
+      ![mask](./Multi-band_blending/Multi-band_blending/burt_mask.png)
      * apple image
-   
-       ![mask](./Mutiband blending/Mutiband blending/burt_apple.png)
+      ![apple](./Multi-band_blending/Multi-band_blending/burt_apple.png)
      * orange image
-
-       ![mask](./Mutiband blending/Mutiband blending/burt_orange.png)
+      ![orange](./Multi-band_blending/Multi-band_blending/burt_orange.png)
  - 결과물
-   ![mask](./Mutiband blending/Mutiband blending/Mutiband-blending.png)
+   ![mask](./Multi-band_blending/Multi-band_blending/Mutiband-blending.png)
 
   

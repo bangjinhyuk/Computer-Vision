@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F2A496526F77B0C00673C9F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F2A496426F77B0C00673C9F /* main.cpp */; };
-		7F2A497026F77C1A00673C9F /* libopencv_imgproc.4.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2A496C26F77C1A00673C9F /* libopencv_imgproc.4.5.3.dylib */; };
-		7F2A497126F77C1A00673C9F /* libopencv_imgcodecs.4.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2A496D26F77C1A00673C9F /* libopencv_imgcodecs.4.5.3.dylib */; };
-		7F2A497226F77C1A00673C9F /* libopencv_core.4.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2A496E26F77C1A00673C9F /* libopencv_core.4.5.3.dylib */; };
-		7F2A497326F77C1A00673C9F /* libopencv_highgui.4.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2A496F26F77C1A00673C9F /* libopencv_highgui.4.5.3.dylib */; };
+		7F2A498826F891E900673C9F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F2A498726F891E900673C9F /* main.cpp */; };
+		7F2A499026F892B600673C9F /* libopencv_imgcodecs.4.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2A498F26F892B600673C9F /* libopencv_imgcodecs.4.5.3.dylib */; };
+		7F2A499226F892D800673C9F /* libopencv_highgui.4.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2A499126F892D800673C9F /* libopencv_highgui.4.5.3.dylib */; };
+		7F2A499426F892EE00673C9F /* libopencv_core.4.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2A499326F892EE00673C9F /* libopencv_core.4.5.3.dylib */; };
+		7F2A499626F892FD00673C9F /* libopencv_imgproc.4.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2A499526F892FD00673C9F /* libopencv_imgproc.4.5.3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7F2A495F26F77B0C00673C9F /* CopyFiles */ = {
+		7F2A498226F891E900673C9F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -27,69 +27,63 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7F2A496126F77B0C00673C9F /* Mutiband blending */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Mutiband blending"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F2A496426F77B0C00673C9F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		7F2A496C26F77C1A00673C9F /* libopencv_imgproc.4.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.4.5.3.dylib; path = ../../../../../opt/homebrew/Cellar/opencv/4.5.3_2/lib/libopencv_imgproc.4.5.3.dylib; sourceTree = "<group>"; };
-		7F2A496D26F77C1A00673C9F /* libopencv_imgcodecs.4.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.5.3.dylib; path = ../../../../../opt/homebrew/Cellar/opencv/4.5.3_2/lib/libopencv_imgcodecs.4.5.3.dylib; sourceTree = "<group>"; };
-		7F2A496E26F77C1A00673C9F /* libopencv_core.4.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.4.5.3.dylib; path = ../../../../../opt/homebrew/Cellar/opencv/4.5.3_2/lib/libopencv_core.4.5.3.dylib; sourceTree = "<group>"; };
-		7F2A496F26F77C1A00673C9F /* libopencv_highgui.4.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.4.5.3.dylib; path = ../../../../../opt/homebrew/Cellar/opencv/4.5.3_2/lib/libopencv_highgui.4.5.3.dylib; sourceTree = "<group>"; };
-		7F2A497426F77C3300673C9F /* Mutiband blending.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Mutiband blending.entitlements"; sourceTree = "<group>"; };
-		7F2A497826F7815600673C9F /* burt_apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = burt_apple.png; sourceTree = "<group>"; };
-		7F2A497926F7815600673C9F /* burt_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = burt_mask.png; sourceTree = "<group>"; };
-		7F2A497A26F7815600673C9F /* burt_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = burt_orange.png; sourceTree = "<group>"; };
+		7F2A498426F891E900673C9F /* Multi-band_blending */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Multi-band_blending"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F2A498726F891E900673C9F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		7F2A498F26F892B600673C9F /* libopencv_imgcodecs.4.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.5.3.dylib; path = ../../../../../../../opt/homebrew/Cellar/opencv/4.5.3_2/lib/libopencv_imgcodecs.4.5.3.dylib; sourceTree = "<group>"; };
+		7F2A499126F892D800673C9F /* libopencv_highgui.4.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.4.5.3.dylib; path = ../../../../../../../opt/homebrew/Cellar/opencv/4.5.3_2/lib/libopencv_highgui.4.5.3.dylib; sourceTree = "<group>"; };
+		7F2A499326F892EE00673C9F /* libopencv_core.4.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.4.5.3.dylib; path = ../../../../../../../opt/homebrew/Cellar/opencv/4.5.3_2/lib/libopencv_core.4.5.3.dylib; sourceTree = "<group>"; };
+		7F2A499526F892FD00673C9F /* libopencv_imgproc.4.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.4.5.3.dylib; path = ../../../../../../../opt/homebrew/Cellar/opencv/4.5.3_2/lib/libopencv_imgproc.4.5.3.dylib; sourceTree = "<group>"; };
+		7F2A499726F8930A00673C9F /* Multi-band_blending.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Multi-band_blending.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7F2A495E26F77B0C00673C9F /* Frameworks */ = {
+		7F2A498126F891E900673C9F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F2A497026F77C1A00673C9F /* libopencv_imgproc.4.5.3.dylib in Frameworks */,
-				7F2A497126F77C1A00673C9F /* libopencv_imgcodecs.4.5.3.dylib in Frameworks */,
-				7F2A497226F77C1A00673C9F /* libopencv_core.4.5.3.dylib in Frameworks */,
-				7F2A497326F77C1A00673C9F /* libopencv_highgui.4.5.3.dylib in Frameworks */,
+				7F2A499626F892FD00673C9F /* libopencv_imgproc.4.5.3.dylib in Frameworks */,
+				7F2A499426F892EE00673C9F /* libopencv_core.4.5.3.dylib in Frameworks */,
+				7F2A499226F892D800673C9F /* libopencv_highgui.4.5.3.dylib in Frameworks */,
+				7F2A499026F892B600673C9F /* libopencv_imgcodecs.4.5.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7F2A495826F77B0C00673C9F = {
+		7F2A497B26F891E900673C9F = {
 			isa = PBXGroup;
 			children = (
-				7F2A496326F77B0C00673C9F /* Mutiband blending */,
-				7F2A496226F77B0C00673C9F /* Products */,
-				7F2A496B26F77C1A00673C9F /* Frameworks */,
+				7F2A498626F891E900673C9F /* Multi-band_blending */,
+				7F2A498526F891E900673C9F /* Products */,
+				7F2A498E26F892B600673C9F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		7F2A496226F77B0C00673C9F /* Products */ = {
+		7F2A498526F891E900673C9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7F2A496126F77B0C00673C9F /* Mutiband blending */,
+				7F2A498426F891E900673C9F /* Multi-band_blending */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7F2A496326F77B0C00673C9F /* Mutiband blending */ = {
+		7F2A498626F891E900673C9F /* Multi-band_blending */ = {
 			isa = PBXGroup;
 			children = (
-				7F2A497426F77C3300673C9F /* Mutiband blending.entitlements */,
-				7F2A497826F7815600673C9F /* burt_apple.png */,
-				7F2A497926F7815600673C9F /* burt_mask.png */,
-				7F2A497A26F7815600673C9F /* burt_orange.png */,
-				7F2A496426F77B0C00673C9F /* main.cpp */,
+				7F2A499726F8930A00673C9F /* Multi-band_blending.entitlements */,
+				7F2A498726F891E900673C9F /* main.cpp */,
 			);
-			path = "Mutiband blending";
+			path = "Multi-band_blending";
 			sourceTree = "<group>";
 		};
-		7F2A496B26F77C1A00673C9F /* Frameworks */ = {
+		7F2A498E26F892B600673C9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7F2A496E26F77C1A00673C9F /* libopencv_core.4.5.3.dylib */,
-				7F2A496F26F77C1A00673C9F /* libopencv_highgui.4.5.3.dylib */,
-				7F2A496D26F77C1A00673C9F /* libopencv_imgcodecs.4.5.3.dylib */,
-				7F2A496C26F77C1A00673C9F /* libopencv_imgproc.4.5.3.dylib */,
+				7F2A499526F892FD00673C9F /* libopencv_imgproc.4.5.3.dylib */,
+				7F2A499326F892EE00673C9F /* libopencv_core.4.5.3.dylib */,
+				7F2A499126F892D800673C9F /* libopencv_highgui.4.5.3.dylib */,
+				7F2A498F26F892B600673C9F /* libopencv_imgcodecs.4.5.3.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -97,37 +91,37 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7F2A496026F77B0C00673C9F /* Mutiband blending */ = {
+		7F2A498326F891E900673C9F /* Multi-band_blending */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F2A496826F77B0C00673C9F /* Build configuration list for PBXNativeTarget "Mutiband blending" */;
+			buildConfigurationList = 7F2A498B26F891E900673C9F /* Build configuration list for PBXNativeTarget "Multi-band_blending" */;
 			buildPhases = (
-				7F2A495D26F77B0C00673C9F /* Sources */,
-				7F2A495E26F77B0C00673C9F /* Frameworks */,
-				7F2A495F26F77B0C00673C9F /* CopyFiles */,
+				7F2A498026F891E900673C9F /* Sources */,
+				7F2A498126F891E900673C9F /* Frameworks */,
+				7F2A498226F891E900673C9F /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Mutiband blending";
-			productName = "Mutiband blending";
-			productReference = 7F2A496126F77B0C00673C9F /* Mutiband blending */;
+			name = "Multi-band_blending";
+			productName = "Multi-band_blending";
+			productReference = 7F2A498426F891E900673C9F /* Multi-band_blending */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7F2A495926F77B0C00673C9F /* Project object */ = {
+		7F2A497C26F891E900673C9F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
-					7F2A496026F77B0C00673C9F = {
+					7F2A498326F891E900673C9F = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
-			buildConfigurationList = 7F2A495C26F77B0C00673C9F /* Build configuration list for PBXProject "Mutiband blending" */;
+			buildConfigurationList = 7F2A497F26F891E900673C9F /* Build configuration list for PBXProject "Multi-band_blending" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -135,29 +129,29 @@
 				en,
 				Base,
 			);
-			mainGroup = 7F2A495826F77B0C00673C9F;
-			productRefGroup = 7F2A496226F77B0C00673C9F /* Products */;
+			mainGroup = 7F2A497B26F891E900673C9F;
+			productRefGroup = 7F2A498526F891E900673C9F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7F2A496026F77B0C00673C9F /* Mutiband blending */,
+				7F2A498326F891E900673C9F /* Multi-band_blending */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7F2A495D26F77B0C00673C9F /* Sources */ = {
+		7F2A498026F891E900673C9F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F2A496526F77B0C00673C9F /* main.cpp in Sources */,
+				7F2A498826F891E900673C9F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		7F2A496626F77B0C00673C9F /* Debug */ = {
+		7F2A498926F891E900673C9F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -216,7 +210,7 @@
 			};
 			name = Debug;
 		};
-		7F2A496726F77B0C00673C9F /* Release */ = {
+		7F2A498A26F891E900673C9F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -268,10 +262,10 @@
 			};
 			name = Release;
 		};
-		7F2A496926F77B0C00673C9F /* Debug */ = {
+		7F2A498C26F891E900673C9F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Mutiband blending/Mutiband blending.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Multi-band_blending/Multi-band_blending.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35HQFPUH8S;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -284,10 +278,10 @@
 			};
 			name = Debug;
 		};
-		7F2A496A26F77B0C00673C9F /* Release */ = {
+		7F2A498D26F891E900673C9F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Mutiband blending/Mutiband blending.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Multi-band_blending/Multi-band_blending.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35HQFPUH8S;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -303,25 +297,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7F2A495C26F77B0C00673C9F /* Build configuration list for PBXProject "Mutiband blending" */ = {
+		7F2A497F26F891E900673C9F /* Build configuration list for PBXProject "Multi-band_blending" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7F2A496626F77B0C00673C9F /* Debug */,
-				7F2A496726F77B0C00673C9F /* Release */,
+				7F2A498926F891E900673C9F /* Debug */,
+				7F2A498A26F891E900673C9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F2A496826F77B0C00673C9F /* Build configuration list for PBXNativeTarget "Mutiband blending" */ = {
+		7F2A498B26F891E900673C9F /* Build configuration list for PBXNativeTarget "Multi-band_blending" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7F2A496926F77B0C00673C9F /* Debug */,
-				7F2A496A26F77B0C00673C9F /* Release */,
+				7F2A498C26F891E900673C9F /* Debug */,
+				7F2A498D26F891E900673C9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7F2A495926F77B0C00673C9F /* Project object */;
+	rootObject = 7F2A497C26F891E900673C9F /* Project object */;
 }
