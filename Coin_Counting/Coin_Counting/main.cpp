@@ -16,6 +16,13 @@
 using namespace cv;
 using namespace std;
 
+//      시나리오
+//     1. 이미지를 불러온다.
+//     2. 각 이미지마다 BilateralFilter를 적용해준뒤 GaussianBlur를 적용하여 노이즈를 없애준다.
+//     3. 허프변환 원 검출(HoughCircles)을 해준다.
+//     4. 이미지에 검출된 원을 그려준다.
+//     5. 원 개수를 출력 해준다.
+
 int main()
 {
 
