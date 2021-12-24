@@ -6,7 +6,6 @@
 //
 
 #include <iostream>
-//#ifdef HAVE_OPENCV_XFEATURES2D
 #include <vector>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp> //기본적인 기능
@@ -27,60 +26,55 @@ using std::endl;
 
 int main()
 {
-
-    // 각 파일을 벡터에 넣어준다.
-    vector<Mat> images(6);
+    //두 사진을 넣어준다.
+    Mat imgL = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Image_Stitching/imgL.png",IMREAD_COLOR);
     
-    Mat img1 = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Image_Stitching/imgL.png",IMREAD_GRAYSCALE);
-    
-    Mat img2 = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Image_Stitching/imgR.png",IMREAD_GRAYSCALE);
-    if ( img1.empty() || img2.empty() )
+    Mat imgR = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Image_Stitching/imgR.png",IMREAD_COLOR);
+    if ( imgL.empty() || imgR.empty() )
     {
         cout << "Could not open or find the image!\n" << endl;
         return -1;
     }
-    //-- Step 1: Detect the keypoints using SURF Detector, compute the descriptors
-    int minHessian = 6000;
-    Ptr<SURF> detector = SURF::create( minHessian );
-    std::vector<KeyPoint> keypoints1, keypoints2;
-    Mat descriptors1, descriptors2;
-    detector->detectAndCompute( img1, noArray(), keypoints1, descriptors1 );
-    detector->detectAndCompute( img2, noArray(), keypoints2, descriptors2 );
     
-
+    // SURF descriptor 생성
+    int minHessian = 600;
+    Ptr<SURF> detector = SURF::create(minHessian);
+    std::vector<KeyPoint> keypointsL, keypointsR;
+    Mat descriptorsL, descriptorsR;
+    detector->detectAndCompute( imgL, noArray(), keypointsL, descriptorsL );
+    detector->detectAndCompute( imgR, noArray(), keypointsR, descriptorsR );
+    
+    //두 영상에서 얻은 desciptor match
     Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
     std::vector< DMatch > matches;
-    matcher->match( descriptors1, descriptors2, matches );
+    matcher->match( descriptorsL, descriptorsR, matches );
     
     
-    double dMaxDist = matches[0].distance;
-    double dMinDist = matches[0].distance;
-    double dDistance;
+    double minDistance = matches[0].distance;
+    double tmpDistance;
 
-    // 두 개의 keypoint 사이에서 min-max를 계산한다 (min값만 사용)
-    for (int i = 0; i < descriptors1.rows; i++) {
-        dDistance = matches[i].distance;
-        if (dDistance < dMinDist) dMinDist = dDistance;
-        if (dDistance > dMaxDist) dMaxDist = dDistance;
+    // distance min 값 찾기
+    for (int i = 0; i < descriptorsL.rows; i++) {
+        tmpDistance = matches[i].distance;
+        if (tmpDistance < minDistance) minDistance = tmpDistance;
     }
-    printf("max_dist : %f \n", dMaxDist);
-    printf("min_dist : %f \n", dMinDist);
+    printf("minDistance : %f \n", minDistance);
     
     //match의 distance 값이 작을수록 matching이 잘 된 것
     //min의 값의 3배 또는 good_matches.size() > 60 까지만 goodmatch로 인정해준다.
 
-    vector<DMatch> good_matches;
-    for (int i = 0; i < descriptors1.rows; i++) {
-        if (matches[i].distance == dMinDist)
-            good_matches.push_back(matches[i]);
+    vector<DMatch> finalMatches;
+    for (int i = 0; i < matches.size(); i++) {
+        if (matches[i].distance == minDistance)
+            finalMatches.push_back(matches[i]);
     }
-    printf("good_matches : %d \n", good_matches.size());
+    printf("finalMatches : %ld \n", finalMatches.size());
     
     
-    //keypoint들과 matching 결과 ("good" matched point)를 선으로 연결하여 이미지에 그려 표시
-    Mat matGoodMatches;
-    drawMatches(img1, keypoints1, img2, keypoints2, good_matches, matGoodMatches, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-    imshow("good-matches", matGoodMatches);
+    //finalMatches에 저장된 match 그림으로 저장
+    Mat matFinalMatches;
+    drawMatches(imgL, keypointsL, imgR, keypointsR, finalMatches, matFinalMatches, Scalar::all(-1), Scalar::all(-1), vector<char>(),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+    imshow("matFinalMatches", matFinalMatches);
     
     
     //Point2f형으로 변환
@@ -88,9 +82,9 @@ int main()
     vector <Point2f> scene;
 
     // goodmatch에서의 keypoint를 저장
-    for (int i = 0; i < good_matches.size();i++) {
-        obj.push_back(keypoints1[good_matches[i].queryIdx].pt);
-        scene.push_back(keypoints2[good_matches[i].trainIdx].pt);
+    for (int i = 0; i < finalMatches.size();i++) {
+        obj.push_back(keypointsL[finalMatches[i].queryIdx].pt);
+        scene.push_back(keypointsR[finalMatches[i].trainIdx].pt);
     }
     Mat HomoMatrix = findHomography(scene, obj, FM_RANSAC);
     //RANSAC기법을 이용하여 첫 번째 매개변수와 두번째 매개변수 사이의 3*3 크기의 투영행렬변환 H를 구한다
@@ -98,7 +92,7 @@ int main()
 
     //Homograpy matrix를 사용하여 이미지를 삐뚤게
     Mat matResult;
-    warpPerspective(img2, matResult, HomoMatrix, Size(img1.cols*2, img1.rows*1.2), INTER_CUBIC);
+    warpPerspective(imgR, matResult, HomoMatrix, Size(imgL.cols*2, imgL.rows*1.2), INTER_CUBIC);
 
     Mat matPanorama;
     matPanorama = matResult.clone(); //복사본 대입
@@ -106,8 +100,8 @@ int main()
     imshow("wrap", matResult);
     waitKey(3000);
 
-    Mat matROI(matPanorama, Rect(0, 0, img1.cols, img1.rows));
-    img1.copyTo(matROI);
+    Mat matROI(matPanorama, Rect(0, 0, imgL.cols, imgL.rows));
+    imgL.copyTo(matROI);
     
     imshow("Panorama", matPanorama);
     //검은 여백 잘라내기
