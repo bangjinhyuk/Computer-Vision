@@ -24,6 +24,46 @@ using namespace cv::xfeatures2d;
 using std::cout;
 using std::endl;
 
+vector<KeyPoint> keypointsL, keypointsR;
+
+/** @brief SURF descriptor 생성
+ */
+vector<Mat> createSURFDescriptor(int minHessian, Mat imgL, Mat imgR){
+    Ptr<SURF> detector = SURF::create(minHessian);
+    vector<Mat> descriptors(2);
+    detector->detectAndCompute(imgL, noArray(), keypointsL, descriptors[0]);
+    detector->detectAndCompute(imgR, noArray(), keypointsR, descriptors[1]);
+    return descriptors;
+}
+
+/** @brief desciptor match 하여 finalMatches 찾기
+ */
+vector<DMatch> findFinalMatches(vector<Mat> descriptors){
+    Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
+    vector< DMatch > matches;
+    matcher->match(descriptors[0], descriptors[1], matches);
+    
+    
+    double minDistance = matches[0].distance;
+    double tmpDistance;
+
+    // distance min 값 찾기
+    for (int i = 0; i < descriptors[0].rows; i++) {
+        tmpDistance = matches[i].distance;
+        if (tmpDistance < minDistance) minDistance = tmpDistance;
+    }
+    printf("minDistance : %f \n", minDistance);
+    
+
+    vector<DMatch> finalMatches;
+    for (int i = 0; i < matches.size(); i++) {
+        if (matches[i].distance == minDistance)
+            finalMatches.push_back(matches[i]);
+    }
+    printf("finalMatches : %ld \n", finalMatches.size());
+    return finalMatches;
+}
+
 int main()
 {
     //두 사진을 넣어준다.
@@ -37,44 +77,20 @@ int main()
     }
     
     // SURF descriptor 생성
-    int minHessian = 600;
-    Ptr<SURF> detector = SURF::create(minHessian);
-    std::vector<KeyPoint> keypointsL, keypointsR;
-    Mat descriptorsL, descriptorsR;
-    detector->detectAndCompute( imgL, noArray(), keypointsL, descriptorsL );
-    detector->detectAndCompute( imgR, noArray(), keypointsR, descriptorsR );
+    vector<Mat> descriptors;
+    descriptors = createSURFDescriptor(600, imgL, imgR);
     
     //두 영상에서 얻은 desciptor match
-    Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE);
-    std::vector< DMatch > matches;
-    matcher->match( descriptorsL, descriptorsR, matches );
-    
-    
-    double minDistance = matches[0].distance;
-    double tmpDistance;
-
-    // distance min 값 찾기
-    for (int i = 0; i < descriptorsL.rows; i++) {
-        tmpDistance = matches[i].distance;
-        if (tmpDistance < minDistance) minDistance = tmpDistance;
-    }
-    printf("minDistance : %f \n", minDistance);
-    
-    //match의 distance 값이 작을수록 matching이 잘 된 것
-    //min의 값의 3배 또는 good_matches.size() > 60 까지만 goodmatch로 인정해준다.
-
     vector<DMatch> finalMatches;
-    for (int i = 0; i < matches.size(); i++) {
-        if (matches[i].distance == minDistance)
-            finalMatches.push_back(matches[i]);
-    }
-    printf("finalMatches : %ld \n", finalMatches.size());
+    finalMatches = findFinalMatches(descriptors);
     
     
     //finalMatches에 저장된 match 그림으로 저장
     Mat matFinalMatches;
     drawMatches(imgL, keypointsL, imgR, keypointsR, finalMatches, matFinalMatches, Scalar::all(-1), Scalar::all(-1), vector<char>(),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
     imshow("matFinalMatches", matFinalMatches);
+    
+    
     
     
     //Point2f형으로 변환
