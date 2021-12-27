@@ -43,85 +43,59 @@ vector<DMatch> findFinalMatches(vector<Mat> descriptors){
     vector< DMatch > matches;
     matcher->match(descriptors[0], descriptors[1], matches);
     
-    
     double minDistance = matches[0].distance;
     double tmpDistance;
 
-    // distance min 값 찾기
     for (int i = 0; i < descriptors[0].rows; i++) {
         tmpDistance = matches[i].distance;
         if (tmpDistance < minDistance) minDistance = tmpDistance;
     }
     printf("minDistance : %f \n", minDistance);
     
-
-    vector<DMatch> finalMatches;
-    for (int i = 0; i < matches.size(); i++) {
-        if (matches[i].distance == minDistance)
-            finalMatches.push_back(matches[i]);
+    double value = 4.0;
+    double result = 100;
+    while(true){
+        vector<DMatch> finalMatches;
+        for (int i = 0; i < matches.size(); i++) {
+            if (matches[i].distance < minDistance*value)
+                finalMatches.push_back(matches[i]);
+        }
+        printf("finalMatches (value=%lf) : %ld \n", value, finalMatches.size());
+        result = finalMatches.size();
+        value = value - 0.1;
+        if(result<60){
+            return finalMatches;
+        }
     }
-    printf("finalMatches : %ld \n", finalMatches.size());
-    return finalMatches;
 }
 
-int main()
-{
-    //두 사진을 넣어준다.
-    Mat imgL = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Image_Stitching/imgL.png",IMREAD_COLOR);
-    
-    Mat imgR = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Image_Stitching/imgR.png",IMREAD_COLOR);
-    if ( imgL.empty() || imgR.empty() )
-    {
-        cout << "Could not open or find the image!\n" << endl;
-        return -1;
-    }
-    
-    // SURF descriptor 생성
-    vector<Mat> descriptors;
-    descriptors = createSURFDescriptor(600, imgL, imgR);
-    
-    //두 영상에서 얻은 desciptor match
-    vector<DMatch> finalMatches;
-    finalMatches = findFinalMatches(descriptors);
-    
-    
-    //finalMatches에 저장된 match 그림으로 저장
-    Mat matFinalMatches;
-    drawMatches(imgL, keypointsL, imgR, keypointsR, finalMatches, matFinalMatches, Scalar::all(-1), Scalar::all(-1), vector<char>(),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-    imshow("matFinalMatches", matFinalMatches);
-    
-    
-    
-    
-    //Point2f형으로 변환
+/** @brief match를 이용하여 Homography를 계산
+ */
+Mat calHomography(vector<DMatch> finalMatches){
     vector <Point2f> obj;
     vector <Point2f> scene;
 
-    // goodmatch에서의 keypoint를 저장
     for (int i = 0; i < finalMatches.size();i++) {
         obj.push_back(keypointsL[finalMatches[i].queryIdx].pt);
         scene.push_back(keypointsR[finalMatches[i].trainIdx].pt);
     }
     Mat HomoMatrix = findHomography(scene, obj, FM_RANSAC);
-    //RANSAC기법을 이용하여 첫 번째 매개변수와 두번째 매개변수 사이의 3*3 크기의 투영행렬변환 H를 구한다
     cout << HomoMatrix << endl;
+    return HomoMatrix;
+}
 
-    //Homograpy matrix를 사용하여 이미지를 삐뚤게
+/** @brief Homograph를 이용하여 한 개의 image를 warping하고, 나머지 image는 copy
+ */
+Mat getResultImage(Mat Homography, Mat imgL, Mat imgR){
     Mat matResult;
-    warpPerspective(imgR, matResult, HomoMatrix, Size(imgL.cols*2, imgL.rows*1.2), INTER_CUBIC);
+    warpPerspective(imgR, matResult, Homography, Size(imgL.cols*2, imgL.rows*1.2),INTER_CUBIC);
 
     Mat matPanorama;
-    matPanorama = matResult.clone(); //복사본 대입
-
-    imshow("wrap", matResult);
-    waitKey(3000);
+    matPanorama = matResult.clone();
 
     Mat matROI(matPanorama, Rect(0, 0, imgL.cols, imgL.rows));
     imgL.copyTo(matROI);
-    
-    imshow("Panorama", matPanorama);
-    //검은 여백 잘라내기
-    
+
     int colorx = 0, colory = 0;
     for (int y = 0; y < matPanorama.rows; y++) {
         for (int x = 0; x < matPanorama.cols; x++) {
@@ -136,10 +110,60 @@ int main()
             }
         }
     }
+
+    Mat resultImage;
+    resultImage = matPanorama(Range(0, colory), Range(0, colorx));
+    return resultImage;
+}
+
+int main()
+{
+    //두 사진을 넣어준다.
+    Mat imgL = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Image_Stitching/IMG_3639.jpg",IMREAD_COLOR);
+
+    Mat imgR = imread("/Users/bangjinhyuk/Documents/개발/Git/Computer-Vision/Image_Stitching/IMG_3640.jpg",IMREAD_COLOR);
     
-    Mat blackCutPanorama;
-    blackCutPanorama = matPanorama(Range(0, colory), Range(0, colorx));
-    imshow("cutblack", blackCutPanorama);
+    
+    // 두 사진 유효성 체크
+    if ( imgL.empty() || imgR.empty() )
+    {
+        cout << "Could not open or find the image!\n" << endl;
+        return -1;
+    }
+    
+    // 사진 resize 해주기
+    Size size(imgL.cols/2, imgL.rows/2);
+    resize(imgL, imgL, size);
+    resize(imgR, imgR, size);
+
+    
+    // SURF descriptor 생성
+    vector<Mat> descriptors;
+    descriptors = createSURFDescriptor(700, imgL, imgR);
+    
+    //두 영상에서 얻은 desciptor match
+    vector<DMatch> finalMatches;
+    finalMatches = findFinalMatches(descriptors);
+    
+
+    //finalMatches에 저장된 match 그림으로 저장
+    Mat matFinalMatches;
+    drawMatches(imgL, keypointsL, imgR, keypointsR, finalMatches, matFinalMatches, Scalar::all(-1), Scalar::all(-1), vector<char>(),DrawMatchesFlags::DEFAULT);
+    imshow("matFinalMatches", matFinalMatches);
+    
+    
+    //match를 이용하여 Homography를 계산
+    Mat Homography;
+    Homography = calHomography(finalMatches);
+    
+    
+    //Homograph를 이용하여 한 개의 image를 warping하고, 나마지 image는 copy
+    Mat resultImage;
+    resultImage = getResultImage(Homography, imgL, imgR);
+    
+    //결과 영상 출력
+    imshow("resultImage", resultImage);
+    
     waitKey();
     return 0;
 }
