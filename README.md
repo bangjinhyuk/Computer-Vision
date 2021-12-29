@@ -64,5 +64,34 @@
  - 결과물
 
     <img src="./Coin_Counting/Coin_Counting/coin_counting_result.png" width="900" height="600"/>
+    
+    
+## Coin Counting 과제 (11/01)
+ - 동전이 있는 이미지를 불러와 동전 개수를 세기
+
+   + 시나리오
+     1. 입력은 직접 촬영한 두 장의 사진을 사용
+     2. 입력 영상으로 부터 특징점과 descriptor를 생성
+     3. 두 영상에서 얻은 desciptor를 match
+     4. match를 이용하여 Homography를 계산
+     5. Homograph를 이용하여 한 개의 image를 warping하고, 나마지 image는 copy 하여 최종 영상 만들기
+     6. 결과 영상을 출력
+   + 주어진 이미지 
+     * LEFT
+     
+        <img src="./Image_Stitching/IMG_3639.jpg" width="400" height="300"/>
+        
+     * RIGHT
+    
+        <img src="./Image_Stitching/IMG_3640.jpg" width="400" height="300"/>
+ - 결과물
+
+   + final desciptor match
+
+        <img src="./Image_Stitching/final desciptor match.png" width="400" height="300"/>
+   
+   + 최종 결과물
+
+        <img src="./Image_Stitching/result.png" width="400" height="300"/>
 
   
